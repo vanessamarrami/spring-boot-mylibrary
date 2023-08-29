@@ -1,0 +1,49 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql8-189919a5926-4d4b35a7d68e7a34": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "LibraryDB",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "1590",
+				"database": "LibraryDB",
+				"url": "jdbc:mysql://localhost:1590/LibraryDB",
+				"configurationType": "MANUAL",
+				"home": "C:\\Program Files\\MySQL\\MySQL Router 8.0",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {
+					"mysql_ssl": {
+						"type": "CONFIG",
+						"enabled": true,
+						"save-password": true,
+						"properties": {
+							"ssl.ca.cert": "",
+							"ssl.client.cert": "",
+							"ssl.client.key": "",
+							"ssl.method": "CERTIFICATES",
+							"ssl.require": "false",
+							"ssl.verify.server": "false",
+							"ssl.public.key.retrieve": "true",
+							"ssl.cipher.suites": ""
+						}
+					}
+				}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

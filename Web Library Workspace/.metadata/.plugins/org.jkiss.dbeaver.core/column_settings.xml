@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+	<item id="NodeList/DataSourceDescriptor">
+		<column name="Nome" visible="true" order="0" width="116"/>
+		<column name="Descrizione" visible="true" order="1" width="104"/>
+		<column name="Origine" visible="true" order="2" width="100"/>
+		<column name="Tipo di driver" visible="true" order="3" width="119"/>
+	</item>
+	<item id="NodeList/MySQLTable">
+		<column name="Nome tabella" visible="true" order="0" width="127"/>
+		<column name="Engine" visible="true" order="1" width="100"/>
+		<column name="Auto Increment" visible="true" order="2" width="137"/>
+		<column name="Data Length" visible="true" order="3" width="110"/>
+		<column name="Description" visible="true" order="4" width="104"/>
+	</item>
+	<item id="NodeList/MySQLTableColumn">
+		<column name="Nome colonna" visible="true" order="0" width="131"/>
+		<column name="#" visible="true" order="1" width="100"/>
+		<column name="Data Type" visible="true" order="2" width="72"/>
+		<column name="Not Null" visible="true" order="3" width="100"/>
+		<column name="Auto Increment" visible="true" order="4" width="137"/>
+		<column name="Key" visible="true" order="5" width="100"/>
+		<column name="Default" visible="true" order="6" width="100"/>
+		<column name="Extra" visible="true" order="7" width="100"/>
+		<column name="Expression" visible="true" order="8" width="100"/>
+		<column name="Comment" visible="true" order="9" width="100"/>
+	</item>
+	<item id="NodeList/SQLServerTable">
+		<column name="Nome tabella" visible="true" order="0" width="127"/>
+		<column name="Bytes totali" visible="true" order="1" width="101"/>
+		<column name="Bytes usati" visible="true" order="2" width="100"/>
+		<column name="Descrizione oggetto (commento)" visible="true" order="3" width="276"/>
+	</item>
+	<item id="NodeList/SQLServerTableColumn">
+		<column name="Nome colonna" visible="true" order="0" width="131"/>
+		<column name="#" visible="true" order="1" width="100"/>
+		<column name="Tipo" visible="true" order="2" width="100"/>
+		<column name="Lunghezza" visible="true" order="3" width="100"/>
+		<column name="Scala" visible="true" order="4" width="100"/>
+		<column name="Precisione" visible="true" order="5" width="100"/>
+		<column name="Non Nullo" visible="true" order="6" width="100"/>
+		<column name="Identità" visible="true" order="7" width="100"/>
+		<column name="Default" visible="true" order="8" width="100"/>
+		<column name="Collation" visible="true" order="9" width="256"/>
+		<column name="Descrizione" visible="true" order="10" width="104"/>
+	</item>
+	<item id="NodeList/SQLServerTableForeignKeyColumn">
+		<column name="Nome" visible="true" order="0" width="108"/>
+		<column name="Nome colonna" visible="true" order="1" width="131"/>
+		<column name="Colonna rif." visible="true" order="2" width="105"/>
+	</item>
+</items>

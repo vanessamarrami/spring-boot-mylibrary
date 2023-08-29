@@ -1,0 +1,11 @@
+html, body {
+            height: 100%;
+        }
+
+.content {
+            min-height: calc(100% - 80px); /* Imposta la dimensione minima del corpo (altezza totale meno altezza del footer) */
+}
+
+#nameAuthorInputSearch  {
+  padding-left: 700px; /* Valore di padding destro */
+}

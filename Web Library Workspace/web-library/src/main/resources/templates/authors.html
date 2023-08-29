@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- Th: prefisso per le direttive di Thymeleaf. Indica che quell'attributo è gestito da thymeleaf durante
+la fare di rendering della pagina web. -->
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+	
+	<head> <!-- head: contiene le informazioni di configurazione della pagina. E' prima del body. Non è visibile nella pag. -->
+		<!-- Indica il set di caratteri usati. UTF-8  set di caratteri universale in grado di rappresentare 
+		 tutti i caratteri e simboli utilizzati nelle diverse lingue. -->
+        <meta charset="utf-8" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />       
+    	<link href="/css/styleBooksAndAuthors.css" rel="stylesheet" />
+    	<title> Authors </title>
+    </head>
+<!-- Rappresenta la parte principale e visibile nel documento HTML. -->
+	<body class="bg-light">
+		<!-- Navigation bar:  navbar-expand-lg = si estende a schermo intero,  navbar-light = stile, bg-light = sfondo chiaro  -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <span class="navbar-brand"><strong>Library</strong></span>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- ul : Crea una lista di elementi. me-auto = allinea gli elementi da sx a dx.
+					 -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+						<!--li: usato per definire una lista di elementi. a: rappresenta un collegamento ipertestuale.
+						 nav-link: utilizzato per definire lo stile di un collegamento all'interno di un elenco di navigazione -->
+                       <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
+                       <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/library}">List of Books</a></li>
+                    </ul>
+                    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post"> 
+        				<button id="buttonLogout" type="submit" class="btn btn-outline-primary">Logout</button>
+					</form>
+          			<a  sec:authorize="!isAuthenticated()" th:href="@{/login}" id="buttonLogin" class="btn btn-outline-primary">Login</a>
+                </div>
+            </div>
+        </nav>  
+		<!-- <div> è un contenitore generico utilizzato per raggruppare e organizzare altri elementi HTML all'interno 
+			di una pagina web.  -->
+		<div class="content">
+			
+			<center>
+            	<br>
+            	<h1 class="display-5 fw-bolder">List of all Authors:</h1>
+            	<br>
+        	</center>
+			
+			<div class="container">	
+				<form th:action="@{/library/author/name}" method="post">
+    				<div class="input-group" id="nameAuthorInputSearch">
+        				 	<input type="text" class="form-control" placeholder="First Name" name="firstNameFound" required>
+    						<input type="text" class="form-control" placeholder="Last Name" name="lastNameFound" required>
+        				<button id="buttonName" type="submit" class="btn btn-outline-primary">search</button>
+    				</div>
+				</form>
+				
+				<div class="row">
+                 <div class="col">
+                    <table id="authorsTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Books</th>
+                                <th scope="col"  sec:authorize="isAuthenticated()"  ></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <span th:each="author : ${authors}">
+                                <tr>
+                                    <th style="width:15%" th:text="${author.id}"></th>
+                                    <td style="width:10%" class="fs-5 mb-5" th:text="${author.firstName}"></td>
+                                    <td style="width:10%" class="fs-5 mb-5" th:text="${author.lastName}"></td>
+                                    <td>
+    									<span th:each="b, iter : ${author.books}">
+        								<span th:text="${b.isbn} + ' '"></span>
+        								<strong th:text="${b.title}"></strong>
+        								<span th:if="${!iter.last}">, </span>
+    									</span>
+									</td>
+                                    <td  sec:authorize="isAuthenticated()" >
+										<a th:href="@{/library/author/update/{id}(id=${author.id})}" class="btn btn-primary">
+                                           <i class="bi bi-pen"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </span>
+                        </tbody>
+                    </table>
+                 </div>
+            	</div>
+            	<center>
+				 <a th:href="@{/library/author}">
+                    <button th:if="${AllAuthors}" class="btn btn-outline-dark flex-shrink-0" type="button">Back To All Authors</button>
+                </a>
+			</center>
+			</div>
+		</div>
+	<!-- Footer-->
+     <footer id="footer" class="py-5 bg-dark">
+     	<div class="container"><p class="m-0 text-center text-white">Library 2023</p></div>
+     </footer>
+	</body>
+</html>

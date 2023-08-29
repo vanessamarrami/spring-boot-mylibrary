@@ -1,0 +1,10 @@
+1687169265808	Extract method 'fillAuthorsSetByStringName'
+1687259104555	Extract method 'fillStringNameBySet'
+1687443040369	Rename resource 'authors'
+1687454683747	Delete element
+1687454870213	Delete element
+1687454898420	Rename resource 'sfodo.jpeg'
+1687455098146	Delete element
+1687517805930	Extract method 'associateWithExixtingAuthor'
+1687517923372	Rename method 'associateWithExixtingAuthor'
+1687615716797	Delete element

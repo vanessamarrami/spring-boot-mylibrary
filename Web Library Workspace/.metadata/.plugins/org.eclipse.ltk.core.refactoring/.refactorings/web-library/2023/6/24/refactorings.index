@@ -1,0 +1,25 @@
+1686562306515	Rename type 'ExceptionHandler'
+1686562385611	Rename resource 'error.html'
+1686563399913	Delete element
+1686563490780	Move compilation unit
+1686563661233	Delete element
+1686563666496	Delete element
+1686563705749	Rename type 'RestExceptionHandler'
+1686564393959	Delete element
+1686564398280	Delete element
+1686582066172	Rename resource 'tiles.xml'
+1686582179949	Rename resource 'tile.xml'
+1686583706815	Rename resource 'header.html'
+1686584193891	Rename resource 'tiles'
+1686584242839	Move file
+1686584283510	Delete element
+1686586072507	Delete element
+1686586761162	Delete element
+1686587267373	Delete element
+1686587273398	Delete element
+1686587316178	Delete element
+1686587706564	Delete element
+1686589671339	Delete element
+1686661998794	Rename type 'BookController'
+1686662009410	Rename type 'AuthorController'
+1686671433282	Rename resource 'styleBooks.css'

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<drivers>
+	<provider id="sqlserver">
+		<driver id="microsoft" category="MS SQL Server" categories="sql" name="SQL Server" class="com.microsoft.sqlserver.jdbc.SQLServerDriver" url="jdbc:sqlserver://{host}[:{port}][;databaseName={database}]" port="1433" defaultDatabase="master" description="Microsoft JDBC Driver per SQL Server (MSSQL)" custom="false">
+			<library type="jar" path="maven:/com.microsoft.sqlserver:mssql-jdbc:RELEASE" custom="false" version="9.2.0.jre8">
+				<file id="com.microsoft.sqlserver:mssql-jdbc" version="9.2.0.jre8" path="${drivers_home}\maven\maven-central\com.microsoft.sqlserver\mssql-jdbc-9.2.0.jre8.jar"/>
+			</library>
+			<library type="lib" path="maven:/com.microsoft.sqlserver:mssql-jdbc_auth:RELEASE" custom="false" version="9.2.0.x64">
+				<file id="com.microsoft.sqlserver:mssql-jdbc_auth" version="9.2.0.x64" path="${drivers_home}\maven\maven-central\com.microsoft.sqlserver\mssql-jdbc_auth-9.2.0.x64.dll"/>
+			</library>
+			<library type="license" path="https://raw.githubusercontent.com/microsoft/sql-server-samples/master/license.txt" custom="false">
+				<file id="https://raw.githubusercontent.com/microsoft/sql-server-samples/master/license.txt" path="${drivers_home}\remote\microsoft\sql-server-samples\master\license.txt"/>
+			</library>
+		</driver>
+	</provider>
+</drivers>

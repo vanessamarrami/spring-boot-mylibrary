@@ -1,0 +1,8 @@
+#dettPlotBook{
+	  overflow-wrap: break-word; /*Se la descrizione è troppo lunga, va a capo*/
+}
+
+#editValidationMessage{
+	font-weight: bold;
+	color: crimson;
+}

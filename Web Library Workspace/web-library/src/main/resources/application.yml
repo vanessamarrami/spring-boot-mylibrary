@@ -1,0 +1,18 @@
+server:
+  port: 5051
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:1590/LibraryDB
+    username: root
+    password: LibraryDB
+    
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+  
+  messages:
+    basename: message

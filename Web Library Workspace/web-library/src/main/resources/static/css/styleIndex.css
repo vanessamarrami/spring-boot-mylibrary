@@ -1,0 +1,19 @@
+#navBar{
+ 	text-align: end;
+}
+ 
+#bodyhome{
+    background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-position: center;
+  	background-size: cover;
+  }
+
+#indexTitle{
+	color: aliceblue;
+	margin-top: 150px; /* Valore del margine superiore */
+	font-size: 63px; /* Dimensione del testo */
+	-webkit-text-stroke: 2px rgb(0, 0, 0); /* Spessore e colore del contorno del testo */
+	line-height: 2; /* Distanza testo e bottoni */
+	font-weight: bold; /* grassetto */
+}

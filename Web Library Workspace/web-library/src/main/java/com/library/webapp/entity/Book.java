@@ -1,0 +1,180 @@
+package com.library.webapp.entity;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+@Entity
+@Table(name = "book")
+public class Book {
+
+	@Id
+	@Basic(optional = false)
+	@Column(unique = true)
+	private String isbn;
+	
+	@Basic(optional = false)
+	private String title;
+	
+	private String genre;
+	
+	@Column(length=2000)
+	private String plot;
+	
+	@Column(name = "publication_date")
+	@Temporal(TemporalType.DATE)
+	private LocalDate publicationDate;
+	
+	@Column(name = "number_pages", columnDefinition = "int default 0")
+	private int numberPages;
+	
+	@ManyToMany(
+			fetch = FetchType.LAZY, 
+			cascade = { CascadeType.MERGE, CascadeType.PERSIST }
+			)
+	@JoinTable(
+			name = "author_book",
+			joinColumns = @JoinColumn(name = "book_isbn"),
+			inverseJoinColumns = @JoinColumn(name = "author_id")	
+	)
+	@JsonManagedReference
+	private Set<Author> authors = new HashSet<>();
+
+	public Book() {
+		super();
+	}
+	
+	public Book(String isbn, String title) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+	}
+	
+	public Book(String isbn, String title, String genre, String plot, LocalDate publicationDate, int numberPages,
+			Set<Author> authors) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+		this.genre = genre;
+		this.plot = plot;
+		this.publicationDate = publicationDate;
+		this.numberPages = numberPages;
+		this.authors = authors;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+
+	public LocalDate getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(LocalDate publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	public int getNumberPages() {
+		return numberPages;
+	}
+
+	public void setNumberPages(int numberPages) {
+		this.numberPages = numberPages;
+	}
+
+	public Set<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(Set<Author> authors) {
+		this.authors = authors;
+	}
+	
+	@Override
+	public String toString() {
+		return "Book [isbn=" + isbn + ", title=" + title + ", genre=" + genre + ", plot=" + plot + ", publicationDate="
+				+ publicationDate + ", numberPages=" + numberPages + ", authors=" + authors + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(isbn);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		return Objects.equals(isbn, other.isbn);
+	}
+
+	public void addAuthors(Set<Author> authorsToAdd) {
+		for (Author author : authorsToAdd) {
+			this.authors.add(author);
+			author.getBooks().add(this);
+		}
+	}
+	
+	public void removeAuthors(Set<Author> authorsToRemove) {
+		 Iterator<Author> iterator = authors.iterator();
+		    while (iterator.hasNext()) {
+		        Author author = iterator.next();
+		        if (authorsToRemove.contains(author)) {
+		            iterator.remove();  // Rimuovi l'autore dalla collezione
+		            author.getBooks().remove(this);  // Rimuovi il libro dalla lista di libri dell'autore
+		        }
+		    }
+	}
+	
+}

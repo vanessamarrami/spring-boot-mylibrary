@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;web-library/src/main/resources/static/css/styleBooks.css&apos; to &apos;styleBooksAndAuthors.css&apos;" description="Rename resource &apos;styleBooks.css&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/resources/static/css/styleBooks.css" name="styleBooksAndAuthors.css" stamp="1688309899881" updateReferences="true"/>
+</session>

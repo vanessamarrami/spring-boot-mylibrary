@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<drivers>
+	<provider id="sqlserver">
+		<driver id="microsoft" category="MS SQL Server" categories="sql" name="SQL Server" class="com.microsoft.sqlserver.jdbc.SQLServerDriver" url="jdbc:sqlserver://{host}[:{port}][;databaseName={database}]" port="1433" defaultDatabase="master" description="Microsoft JDBC Driver per SQL Server (MSSQL)" custom="false">
+			<library type="jar" path="maven:/com.microsoft.sqlserver:mssql-jdbc:RELEASE" custom="false" version="9.2.0.jre8">
+				<file id="com.microsoft.sqlserver:mssql-jdbc" version="9.2.0.jre8" path="${drivers_home}\maven\maven-central\com.microsoft.sqlserver\mssql-jdbc-9.2.0.jre8.jar"/>
+			</library>
+			<library type="lib" path="maven:/com.microsoft.sqlserver:mssql-jdbc_auth:RELEASE" custom="false" version="9.2.0.x64">
+				<file id="com.microsoft.sqlserver:mssql-jdbc_auth" version="9.2.0.x64" path="${drivers_home}\maven\maven-central\com.microsoft.sqlserver\mssql-jdbc_auth-9.2.0.x64.dll"/>
+			</library>
+			<library type="license" path="https://raw.githubusercontent.com/microsoft/sql-server-samples/master/license.txt" custom="false">
+				<file id="https://raw.githubusercontent.com/microsoft/sql-server-samples/master/license.txt" path="${drivers_home}\remote\microsoft\sql-server-samples\master\license.txt"/>
+			</library>
+		</driver>
+	</provider>
+	<provider id="mysql">
+		<driver id="mysql8" categories="sql" name="MySQL" class="com.mysql.cj.jdbc.Driver" url="jdbc:mysql://{host}[:{port}]/[{database}]" port="3306" defaultUser="root" description="Driver for MySQL 8 and later" custom="false">
+			<library type="jar" path="maven:/mysql:mysql-connector-java:RELEASE" custom="false" version="8.0.29">
+				<file id="mysql:mysql-connector-java" version="8.0.29" path="${drivers_home}\maven\maven-central\mysql\mysql-connector-java-8.0.29.jar"/>
+				<file id="com.google.protobuf:protobuf-java" version="3.19.4" path="${drivers_home}\maven\maven-central\com.google.protobuf\protobuf-java-3.19.4.jar"/>
+			</library>
+			<library type="license" path="https://www.gnu.org/licenses/old-licenses/lgpl-2.0.txt" custom="false">
+				<file id="https://www.gnu.org/licenses/old-licenses/lgpl-2.0.txt" path="${drivers_home}\remote\licenses\old-licenses\lgpl-2.0.txt"/>
+			</library>
+		</driver>
+	</provider>
+</drivers>

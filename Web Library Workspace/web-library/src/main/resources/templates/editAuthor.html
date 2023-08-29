@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="/css/styleEditDetBookAuthor.css" rel="stylesheet" />      
+    	<title>Edit Author</title>
+    </head>
+    <!-- Insert/modify form
+Class: bg-light imposta un colore chiaro al corpo della pagina. -->
+<body class="bg-light">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <span class="navbar-brand"><strong>Library</strong></span>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/library}">List of Books</a></li>
+                    	<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/library/author}">List of Authors</a></li>
+                    </ul>
+                    <form th:action="@{/logout}" method="post">
+        				<button id="buttonLogout" type="submit" class="btn btn-outline-primary">Logout</button>
+					</form>
+                </div>
+            </div>
+        </nav> 
+	<!-- py-5 px-4 px-md-5: impostazioni padding verticale e orizzontale del div. -->
+        <div class="py-5 px-4 px-md-5">
+			<!-- text-center : per centrare il testo. mb-5. imposta il margine inferiore. -->
+            <div class="text-center mb-5"> 
+				<!-- fw-bolder: stile grassetto -->
+                <h1 class="fw-bolder"> Edit Author</h1>
+            </div>
+            <!-- row: riga di elementi in sistema a griglia. gx-5: spazio orizzontale di 5 unità.
+            v: allinea gli elementi al centro.
+             -->
+            <div class="row gx-5 justify-content-center">
+				<!-- col: crea una colonna nella riga row.
+				il div occuperà 8 colonne su 12 colonne disponibili per schermi large (col-lg-8)
+				 e 6 colonne su 12 colonne per schermi extra-large (col-xl-6)-->
+                <div class="col-lg-8 col-xl-6">
+					<!-- Cra un elemento Form con id editForm.
+					 th:object: collega l'oggetto "author" dal modello Thymeleaf al modulo.
+					 post: indica che la richiesta è post.  -->
+                    <form id="editForm" name="authorForm" th:object="${author}" method="post" th:action="@{/library/author/update/saveAuthor}">
+                         <!-- ID input
+                          form-floating: CSS, Bootstrap, crea uno stile di input con etichetta fluttuante.  -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="id" type="text" readonly="readonly"  th:field="*{id}" />
+                            <label for="id">ID</label>
+                        </div>
+                        <!-- First Name input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="firstName" type="text" th:field="*{firstName}"/>
+                            <label for="firstName">First Name</label>
+                             <p id="editValidationMessage" th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}"/>
+                        </div>
+                        <!-- Last Name input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="lastName" type="text" th:field="*{lastName}" />
+                            <label for="lastName">Last Name</label>
+                             <p id="editValidationMessage" th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}"/>
+                        </div>
+                      
+                        <br>
+                        <!-- Sumit button or reset: -->
+                        <p>
+							<input name="submitButton" class="btn btn-outline-dark flex-shrink-0" type="submit" value="Submit" />
+                         	<input class="btn btn-outline-dark flex-shrink-0" type="reset" value="Reset" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+  <!-- Footer-->
+     <footer id="footer" class="py-5 bg-dark">
+     	<div class="container"><p class="m-0 text-center text-white">Library 2023</p></div>
+     </footer>
+</body>
+</html>

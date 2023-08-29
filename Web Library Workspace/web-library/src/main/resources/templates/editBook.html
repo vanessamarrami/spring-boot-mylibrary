@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="/css/styleEditDetBookAuthor.css" rel="stylesheet" />      
+    	<title th:text="${message}"></title>
+    </head>
+    <!-- Insert/modify form -->
+<body class="bg-light">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <span class="navbar-brand"><strong>Library</strong></span>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/library}">List of Books</a></li>
+                    	<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/library/author}">List of Authors</a></li>
+                    </ul>
+                    <form th:action="@{/logout}" method="post">
+        				<button id="buttonLogout" type="submit" class="btn btn-outline-primary">Logout</button>
+					</form>
+                </div>
+            </div>
+        </nav> 
+        <div class="py-5 px-4 px-md-5 ">
+            <div class="text-center mb-5"> 
+                <h1 th:text="${message}" class="fw-bolder"></h1>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+					<!-- Cra un elemento Form con id editForm.
+					 th:object: collega l'oggetto "bookDto" dal modello Thymeleaf al modulo.
+					 post: indica che la richiesta è post.  -->
+                    <form id="editForm" name="bookForm" th:object="${bookDto}" method="post" action="#"
+                    th:action="${message == 'New Book' ? '/library/insert/saveNewBook' : '/library/update/saveBook'}">
+                        <!-- Isbn input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="isbn" type="text" th:readonly="${message == 'Edit Book'}" placeholder="Enter a ISBN..."  th:field="*{isbn}" />
+                            <label for="isbn">ISBN</label>
+                            <p id="editValidationMessage" th:if="${#fields.hasErrors('isbn')}" th:errorclass="error" th:errors="*{isbn}"/>
+                        </div>
+                        <!-- Title input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="title" type="text" placeholder="Enter a title..." th:field="*{title}" />
+                            <label for="title">Title</label>
+                            <p id="editValidationMessage" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"/>
+                        </div>
+                        <!-- Genre input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="genre" type="text" placeholder="Enter a Genre..." th:field="*{genre}" />
+                            <label for="genre">Genre</label>
+                            <p id="editValidationMessage" th:if="${#fields.hasErrors('genre')}" th:errorclass="error" th:errors="*{genre}"/>
+                        </div>
+                        <!-- Publication Date input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="publicationDate" type="text" placeholder="Enter a Publication Date..." 
+                            th:field="*{publicationDate}" pattern="\d{4}-\d{2}-\d{2}" title="Enter the date in the format 'YYYY-MM-DD'"/>
+                            <label for="publicationDate">Publication Date (YYYY-MM-DD)</label>
+                            <p id="editValidationMessage" th:if="${#fields.hasErrors('publicationDate')}" th:errorclass="error" th:errors="*{publicationDate}"/>
+                        </div>
+                        <!-- Number of Pages input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="numberPages" type="number" placeholder="Enter a Number of Pages..." th:field="*{numberPages}" required />
+                            <label for="numberPages">Number of Pages</label>
+                            <p id="editValidationMessage" th:if="${#fields.hasErrors('numberPages')}" th:errorclass="error" th:errors="*{numberPages}"/>
+                        </div>
+                        <!-- Plot input -->
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="plot" type="text" placeholder="Enter plot here..." style="height: 10rem" th:field="*{plot}"></textarea>
+                            <label for="plot">Plot</label>
+                            <p id="editValidationMessage" th:if="${#fields.hasErrors('plot')}" th:errorclass="error" th:errors="*{plot}"/>
+                        </div>
+						<div>
+    						<label>Authors: <input type="text" name="authorNames" th:value="${authorNames}" required pattern="^([A-Za-z]+ [A-Za-z]+(?:, [A-Za-z]+ [A-Za-z]+)*)?$" title="Enter the name in the format 'First Name Last Name'"/></label>
+    						<small>Separare gli autori con una virgola (es. Williams Smith, Emily Brown)</small>
+						</div>
+                        <br>
+                        <!-- Sumit button or reset: -->
+                        <p>
+							<input name="submitButton" class="btn btn-outline-dark flex-shrink-0" type="submit" value="Submit" />
+                         	<input name="reset" class="btn btn-outline-dark flex-shrink-0" type="reset" value="Reset" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+  <!-- Footer-->
+      <footer id="footer" class="py-5 bg-dark" style=" height: 5px;">
+     	<div class="container"><p class="m-0 text-center text-white">Library 2023</p></div>
+     </footer>
+</body>
+</html>

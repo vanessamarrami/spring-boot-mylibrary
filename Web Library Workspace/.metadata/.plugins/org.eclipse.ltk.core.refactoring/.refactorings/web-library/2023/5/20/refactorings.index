@@ -1,0 +1,27 @@
+1684142916472	Change method 'Author'
+1684153756674	Delete element
+1684154605908	Rename type 'AuthoRepositoryTest'
+1684167002135	Rename package 'com.library.webapp.dto.mapper'
+1684177324819	Rename package 'com.library.webapp.mapper'
+1684178465658	Rename field 'code'
+1684178517243	Rename field 'nameAndSurname'
+1684182496238	Rename type 'mapperTest'
+1684251459713	Rename local variable 'book2Dto'
+1684251470210	Rename local variable 'book1Dto'
+1684253855282	Rename type 'AuthorTestInseertDellAll'
+1684432100673	Delete element
+1684432107472	Delete elements
+1684432330852	Rename package 'com.library.webapp.dto.mapper'
+1684432499846	Delete element
+1684435497388	Delete element
+1684505113758	Rename type 'BookGetDto'
+1684505257237	Delete element
+1684505917940	Rename type 'AuthorGetDto'
+1684505974405	Rename type 'AuthorDto'
+1684507232648	Rename local variable 'authorGetDto'
+1684507275464	Rename method 'bookGetDtoToBook'
+1684507284984	Rename method 'bookToBookGetDto'
+1684507303740	Rename method 'authorToAuthorGetDto'
+1684507313465	Rename method 'authorToAuthorDto'
+1684507326060	Rename method 'authorGetDtoToAuthor'
+1684673446948	Rename method 'findByName'

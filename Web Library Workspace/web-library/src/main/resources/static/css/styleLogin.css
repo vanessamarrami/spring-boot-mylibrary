@@ -1,0 +1,7 @@
+html, body {
+            height: 100%;
+        }
+
+#contentLogin {
+            min-height: calc(100% - 80px); /* Imposta la dimensione minima del corpo (altezza totale meno altezza del footer) */
+}

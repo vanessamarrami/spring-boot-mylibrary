@@ -1,0 +1,61 @@
+package com.library.webapp.repository;
+
+import com.library.webapp.config.H2Config;
+import com.library.webapp.entity.Author;
+import com.library.webapp.entity.Book;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+
+@DataJpaTest
+@ContextConfiguration(
+		  classes = { H2Config.class }, 
+		  loader = AnnotationConfigContextLoader.class)
+class AuthorRepositoryTest {
+
+	@Autowired
+	private AuthorRepository authorRepository;
+	
+	@Autowired
+	private TestEntityManager entityManager;
+	
+	@Test
+	void testGetAllAuthor() {
+		Book book = new Book("978-88-111-1111-1", "titleA", "genre", "plot", LocalDate.parse("2000-01-01"),
+				100, null);
+		Author author1 = new Author (null, "firstName1", "lastName1", Set.of(book));	
+		Author author2 = new Author(null, "firstName2", "lastName2", Set.of(book));
+		book.setAuthors(Set.of(author1, author2));
+		entityManager.persist(author1);
+		entityManager.persist(author2);
+		Collection<Author> authors = authorRepository.findAll();
+		
+		assertThat(authors).containsExactly(author1, author2);
+		assertEquals(2, authors.size());
+	}
+	
+		
+	@Test
+	void testGetAuthorByName() {
+		Book book = new Book("978-88-111-1111-1", "titleA", "genre", "plot", LocalDate.parse("2000-01-01"),
+				100, null);
+		Author author = new Author (null, "firstName", "lastName", Set.of(book));
+		book.setAuthors(Set.of(author));
+		entityManager.persistAndFlush(author);
+		Author result = authorRepository.findByNameLike(author.getFirstName(), author.getLastName());
+		
+		assertThat(result).isEqualTo(author);
+	}
+
+}

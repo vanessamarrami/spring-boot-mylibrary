@@ -1,0 +1,98 @@
+package com.library.webapp.jpaTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+
+import com.library.webapp.config.H2Config;
+import com.library.webapp.entity.Book;
+
+@DataJpaTest
+/*@ContextConfiguration(
+		  classes = { H2Config.class }, 
+		  loader = AnnotationConfigContextLoader.class)*/
+@TestPropertySource("classpath:databaseH2.properties")
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+class BookJpaTest {
+	
+	@Autowired
+	private TestEntityManager entityManager;
+	
+	@Test
+	void testjpaMapping() {
+		Book saved = entityManager.persistAndFlush(new Book("isbn", "title"));
+		
+		assertThat(saved.getIsbn()).isEqualTo("isbn");
+		assertThat(saved.getTitle()).isEqualTo("title");
+		assertThat(saved.getNumberPages()).isNotNull();
+		assertThat(saved.getNumberPages()).isEqualTo(0);
+	}
+	
+	@Test
+	void test2BookNotEqual(){
+		Book book1 = new Book("isbn1", "title");
+		Book book2 = new Book("isbn2", "title");
+		
+		assertFalse(book1.equals(book2));
+	}
+	
+	@Test
+	void testFind2BookWithDifferentRecords() {
+		String isbnBook1 = "isbn1";
+		String isbnBook2 =  "isbn2";
+		entityManager.persistAndFlush(new Book(isbnBook1, "title"));
+		entityManager.persistAndFlush(new Book(isbnBook2, "title"));
+		Book result1 = entityManager.find(Book.class, isbnBook1);
+		Book result2 = entityManager.find(Book.class, isbnBook2);
+		
+		assertFalse(result1.equals(result2));
+		}
+	
+	
+	@Test
+	void test2BookWithSameRecord_OneBookPersist() {
+		String isbnBook = "isbn";
+		entityManager.persistAndFlush(new Book(isbnBook, "title"));
+		Book book = new Book(isbnBook, "titleBook"); 
+		Book result = entityManager.find(Book.class, isbnBook);
+		
+		assertTrue(book.equals(result));
+		/* sembra contraddittorio, ma è la chiave che identifica un oggetto, un oggetto è uguale se
+		 * ha la stessa chiave primaria su Hibernate.*/
+	}
+	
+	@Test
+	void test2BookWithSameRecord_AllBookPersist() {
+		/*Persist prende un'istanza dell'entità, la aggiunge al contesto
+		 *  e rende quell'istanza gestita (cioè verranno tracciati i futuri
+		 *  aggiornamenti dell'entità).
+			Merge restituisce l'istanza gestita con cui è stato unito lo stato. 
+			Restituisce qualcosa che esiste in PersistenceContext o crea una 
+			nuova istanza della tua entità. In ogni caso, copierà lo stato dall'entità 
+			fornita e restituirà una copia gestita. L'istanza che passi non verrà gestita
+			(eventuali modifiche apportate non faranno parte della transazione, a meno che 
+			non chiami nuovamente merge). Sebbene sia possibile utilizzare l'istanza restituita 
+			(quella gestita). 
+			Se infatti mettevo persist in tutti e due i casi mi dava l'eccezione:
+			Un oggetto diverso con lo stesso valore identificativo era già associato alla sessione:
+			 [com.library.webapp.entity.Book#isbn]
+			*/
+		String isbnBook = "isbn";
+		entityManager.persistAndFlush(new Book(isbnBook, "title"));
+		Book book = new Book(isbnBook, "titleBook"); 
+		entityManager.merge(book);
+		Book result = entityManager.find(Book.class, isbnBook);
+		
+		assertTrue(book.equals(result));
+	}
+}
