@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    container_name: mysqlApplicationDB
+    volumes: 
+       - type: bind
+         source: ./dockervol
+         target: /var/lib/mysql
+    ports:
+        - target: 3306
+          published: 1590 #Porta macchina Host. 
+          protocol: tcp
+          mode: host
+    environment:
+      MYSQL_ROOT_PASSWORD: LibraryDB
+      MYSQL_DATABASE: LibraryDB
+      MYSQL_USER: sa
+      MYSQL_PASSWORD: Library123
+volumes:
+  mysql-data:
