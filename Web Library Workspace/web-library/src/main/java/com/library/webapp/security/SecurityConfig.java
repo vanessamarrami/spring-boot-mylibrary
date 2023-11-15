@@ -29,7 +29,7 @@ public class SecurityConfig{
 	 * l'utenti che potranno accedere alla nostra web app. 
 	 * Rappresenta la fase di autenticazione dove inseriremo tutte le user ID e pass degli utenti.
 	 * In questa FASE di configurazione della sicurezza i dati verranno inseriti in memoria, quindi
-	 * verrano hard coded all'interno della classe, specificando manualmente i dettagli degli utenti.
+	 * verrano hardcoded all'interno della classe, specificando manualmente i dettagli degli utenti.
 	 * Creiamo due utenti: 
 	 * - user: utente che può solo accedere al catalogo. Solo lettura.   
 	 * - admin : può anche operare sulle risorse del catalogo. */
