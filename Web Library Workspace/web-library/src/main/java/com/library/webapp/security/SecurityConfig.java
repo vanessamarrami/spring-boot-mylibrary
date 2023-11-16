@@ -17,22 +17,11 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @EnableWebSecurity
 public class SecurityConfig{
 
-	/* Nel Db non ci devono essere i dati sensibili in chiaro. Quindi criptiamo i dati utilizzando
-	 * BCryptPasswordEncoder. Il bean attiva il BCryptPasswordEncoder. */
 	@Bean 
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
-	
-	/* Importante: come dice il nome, è il servizio che ci permetterà di specificare quelli che sono
-	 * l'utenti che potranno accedere alla nostra web app. 
-	 * Rappresenta la fase di autenticazione dove inseriremo tutte le user ID e pass degli utenti.
-	 * In questa FASE di configurazione della sicurezza i dati verranno inseriti in memoria, quindi
-	 * verrano hardcoded all'interno della classe, specificando manualmente i dettagli degli utenti.
-	 * Creiamo due utenti: 
-	 * - user: utente che può solo accedere al catalogo. Solo lettura.   
-	 * - admin : può anche operare sulle risorse del catalogo. */
 	@Bean 
 	public InMemoryUserDetailsManager userDetailsService() {
 	
@@ -44,11 +33,6 @@ public class SecurityConfig{
 		return new InMemoryUserDetailsManager(admin);
 	}
 	
-	/*Specifichiamo le autorizzazioni che gli utenti possono avere, quindi conseguentemente quali pagine, 
-	 * quali elementi della nostra webapp. 
-	 * Gli URL devono essere dal più specifico al più generico es: prima /library/update/* per admin e 
-	 * poi "/library/*" per l'user.
-	 * 	Da quelle più restrittivi a quelli meno restrittivi */
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
 		http
