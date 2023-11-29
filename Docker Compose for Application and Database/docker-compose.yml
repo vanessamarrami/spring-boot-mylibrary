@@ -1,0 +1,43 @@
+# Docker Compose Configuration for Library Application and Database 
+# To download the Docker image vanessamarrami/weblibrary:0.0.1-SNAPSHOT: https://hub.docker.com/repository/docker/vanessamarrami/weblibrary
+version: '3.8'
+
+services: 
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    container_name: mysql-library
+    volumes: 
+       - type: bind
+         source: ./dockervol
+         target: /var/lib/mysql
+    ports:
+      - target: 3306
+        published: 1592 #Porta macchina Host. 
+        protocol: tcp
+        mode: host
+    networks: 
+      - library-networks
+    environment:
+      MYSQL_ROOT_PASSWORD: LibraryDB
+      MYSQL_DATABASE: LibraryDB
+      MYSQL_USER: sa
+      MYSQL_PASSWORD: Library123
+
+  docker-compose-spring-boot-library:
+    image: vanessamarrami/weblibrary:0.0.1-SNAPSHOT
+    ports:
+      - "5051:5051"
+    networks: 
+      - library-networks
+    restart: on-failure
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:1592/LibraryDB
+
+volumes:
+  mysql-data:
+
+networks:
+  library-networks:
